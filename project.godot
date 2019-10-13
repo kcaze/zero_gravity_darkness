@@ -16,7 +16,13 @@ _global_script_class_icons={
 [application]
 
 config/name="Zero Gravity Darkness"
+run/main_scene="res://levels/level0.tscn"
+boot_splash/bg_color=Color( 0.141176, 0.141176, 0.141176, 1 )
 config/icon="res://icon.png"
+
+[debug]
+
+settings/stdout/print_fps=true
 
 [input]
 
@@ -48,4 +54,5 @@ jump={
 
 [rendering]
 
+environment/default_clear_color=Color( 0, 0, 0, 1 )
 environment/default_environment="res://default_env.tres"

@@ -1,0 +1,28 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://entities/light.gd" type="Script" id=1]
+[ext_resource path="res://images/Items/yellowGem.png" type="Texture" id=2]
+
+[node name="light" type="Sprite" groups=[
+"light",
+]]
+texture = ExtResource( 2 )
+
+[node name="Area2D" type="Area2D" parent="."]
+z_index = -1
+input_pickable = false
+script = ExtResource( 1 )
+
+[node name="collisionPolygon" type="CollisionPolygon2D" parent="Area2D"]
+z_index = -1
+z_as_relative = false
+polygon = PoolVector2Array( 0, 0 )
+
+[node name="visiblePolygon" type="Polygon2D" parent="Area2D"]
+color = Color( 1, 1, 1, 0.254902 )
+antialiased = true
+
+[node name="raycast" type="RayCast2D" parent="Area2D"]
+enabled = true
+collision_mask = 2
+collide_with_areas = true

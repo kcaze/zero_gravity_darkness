@@ -1,33 +1,54 @@
-extends Polygon2D
+extends Area2D
 
-onready var map = get_node('../TileMap')
-onready var set = get_node('../TileMap').tile_set
-onready var rc = get_node('RayCast2D')
-
-var t = 0
+onready var rc = get_node('raycast')
+var UPDATE_INTERVAL = 1000/60
+var nextUpdate = 0
 
 func _ready():
 	set_process(true)
 
 func _process(delta):
-	t += delta
-	position.y += 0.5*sin(t)
-	var points = []
-	var castPoints = []
-	for pos in map.get_used_cells():
-		var cell = map.get_cellv(pos)
-		var occluder = set.tile_get_light_occluder(cell)
-		var cell_offset = map.map_to_world(pos)
-		for p in occluder.polygon:
-			castPoints.append(p+cell_offset - position)
-	castPoints.sort_custom(self, "sortByAngle")
-	for pos in castPoints:
-		rc.cast_to = pos
-		rc.force_raycast_update()
-		if rc.is_colliding():
-			points.append(rc.get_collision_point() - position)
-
-	polygon = PoolVector2Array(points)
+	nextUpdate -= delta*1000
+	if nextUpdate <= 0:
+		nextUpdate = UPDATE_INTERVAL
+		get_parent().position = get_viewport().get_mouse_position()
+		var offset = get_parent().position
+		var maps = get_tree().get_nodes_in_group('collision_map')
+		var points = []
+		for map in maps:
+			var set = map.tile_set
+			for pos in map.get_used_cells():
+				var cell = map.get_cellv(pos)
+				var occluder = set.tile_get_light_occluder(cell)
+				var cell_offset = map.map_to_world(pos)
+				if occluder == null:
+					continue
+				var isVisible = false
+				var occluderPoints = []
+				for p in occluder.polygon:
+					for radOffset in [0,-0.00001, 0.00001]:
+						var point = (p+cell_offset - offset).rotated(radOffset)
+						rc.cast_to = point
+						rc.force_raycast_update()
+						if rc.is_colliding():
+							occluderPoints.append(rc.get_collision_point() - offset)
+							if (rc.get_collision_point() - offset - point).length() < 0.1:
+								isVisible = true
+				if isVisible:
+					for p in occluderPoints:
+						points.append(p)
+		points.sort_custom(self, "sortByAngle")
+		var dedupedPoints = []
+		var currentPoint = null
+		for p in points:
+			if currentPoint != null and (p-currentPoint).length() < 1:
+				continue
+			dedupedPoints.append(p)
+			currentPoint = p
+		print(dedupedPoints.size())
+		points = PoolVector2Array(dedupedPoints)
+		get_node('visiblePolygon').polygon = points
+		get_node('collisionPolygon').polygon = points
 
 func sortByAngle(a,b):
-	return atan2(a.y,a.x) < atan2(b.y,b.x)
+	return a.angle() < b.angle()

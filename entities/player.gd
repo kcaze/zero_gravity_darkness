@@ -49,6 +49,7 @@ func _process(delta):
 	speed.x = approach(speed.x, MAX_RUN*inputMoveX, RUN_ACCEL*delta)
 
 	# Gravity
+	print(inLight())
 	if not is_on_floor():
 		var gravityMult = 0.5 if abs(speed.y) < HALF_GRAVITY_THRESHOLD and Input.is_action_pressed('jump') else 1
 		speed.y = approach(speed.y, MAX_FALL, GRAVITY*delta*gravityMult)
@@ -64,3 +65,9 @@ func jump():
 	inputJump = 0
 	speed.x += JUMP_H_BOOST * inputMoveX
 	speed.y = JUMP_SPEED
+
+func inLight():
+	for light in get_tree().get_nodes_in_group('light'):
+		if light.get_node('Area2D').overlaps_area(get_node('Area2D')):
+			return true
+	return false
