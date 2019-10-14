@@ -8,21 +8,12 @@
 ]]
 texture = ExtResource( 2 )
 
-[node name="Area2D" type="Area2D" parent="."]
+[node name="visiblePolygon" type="Polygon2D" parent="."]
 z_index = -1
-input_pickable = false
+antialiased = true
 script = ExtResource( 1 )
 
-[node name="collisionPolygon" type="CollisionPolygon2D" parent="Area2D"]
-z_index = -1
-z_as_relative = false
-polygon = PoolVector2Array( 0, 0 )
-
-[node name="visiblePolygon" type="Polygon2D" parent="Area2D"]
-color = Color( 1, 1, 1, 0.254902 )
-antialiased = true
-
-[node name="raycast" type="RayCast2D" parent="Area2D"]
+[node name="raycast" type="RayCast2D" parent="visiblePolygon"]
 enabled = true
 collision_mask = 2
 collide_with_areas = true
