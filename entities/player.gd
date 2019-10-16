@@ -6,8 +6,8 @@ const RUN_ACCEL = 1500
 const RUN_REDUCE = 750
 const MAX_SWIM = 50
 const SWIM_ACCEL = 500
-const SWIM_FRICTION = 0.93
-const SWIM_DASH_ACCEL = 200
+const SWIM_FRICTION = 0.875
+const SWIM_DASH_ACCEL = 300
 const GRAVITY = 900
 const HALF_GRAVITY_THRESHOLD = 40
 const JUMP_GRACE_TIME = 0.1
@@ -64,11 +64,14 @@ func _process(delta):
 	#Graphical updates
 	if sign(speed.x) != 0:
 		facing = sign(speed.x)
-	
+	get_node('Particles2D').emitting = max(abs(speed.x),abs(speed.y)) >= MAX_SWIM/SWIM_FRICTION
 	get_node('sprite').scale.x = facing
+	
+	
 	var isInLight = inLight()
 	# Regular platforming
 	if isInLight:
+		dashGraceTime = 0
 		if is_on_floor():
 			jumpGraceTime = JUMP_GRACE_TIME
 		else:
@@ -87,6 +90,8 @@ func _process(delta):
 			speed.y = approach(speed.y, MAX_FALL, GRAVITY*delta*gravityMult)
 		else:
 			speed.y = 0
+		if is_on_ceiling():
+			speed.y = 0
 		
 		# Jumping
 		if inputJump > 0 and jumpGraceTime > 0:
@@ -96,7 +101,6 @@ func _process(delta):
 		var maxY = MAX_SWIM*inputMoveY/SWIM_FRICTION
 		dashGraceTime -= delta
 		if dashGraceTime > 0:
-			print('hi')
 			if inputMoveX != 0 or inputMoveY != 0:
 				var s = max(abs(speed.x),abs(speed.y))
 				speed.x = inputMoveX*s

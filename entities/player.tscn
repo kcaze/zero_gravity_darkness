@@ -1,7 +1,28 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://entities/player.gd" type="Script" id=1]
 [ext_resource path="res://images/player.png" type="Texture" id=2]
+[ext_resource path="res://images/trail_particle.png" type="Texture" id=3]
+
+[sub_resource type="Gradient" id=2]
+colors = PoolColorArray( 1, 1, 1, 1, 1, 1, 1, 0 )
+
+[sub_resource type="GradientTexture" id=3]
+gradient = SubResource( 2 )
+
+[sub_resource type="ParticlesMaterial" id=1]
+emission_shape = 1
+emission_sphere_radius = 1.0
+flag_disable_z = true
+spread = 180.0
+gravity = Vector3( 0, 0, 0 )
+initial_velocity = 8.0
+angular_velocity = 0.0
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+damping = 5.0
+damping_random = 0.5
+color_ramp = SubResource( 3 )
 
 [node name="player" type="KinematicBody2D" groups=[
 "player",
@@ -13,3 +34,12 @@ texture = ExtResource( 2 )
 
 [node name="collisionPolygon" type="CollisionPolygon2D" parent="."]
 polygon = PoolVector2Array( -7, -7, 7, -7, 7, 8, -7, 8 )
+
+[node name="Particles2D" type="Particles2D" parent="."]
+z_index = -1
+amount = 50
+speed_scale = 1.5
+explosiveness = 0.22
+local_coords = false
+process_material = SubResource( 1 )
+texture = ExtResource( 3 )

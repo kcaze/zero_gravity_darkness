@@ -10,4 +10,4 @@ func _process(delta):
 	offset = Vector2(rand_range(0,screenshakeMagnitude), rand_range(0,screenshakeMagnitude))
 
 func screenshake():
-	screenshakeMagnitude = 2
+	screenshakeMagnitude = 0

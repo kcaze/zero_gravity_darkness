@@ -1,15 +1,22 @@
 tool
-extends Polygon2D
+extends Node2D
 
 onready var rc = get_node('raycast')
 var UPDATE_INTERVAL = 1000/60
 var nextUpdate = 0
 var triangulatedPolygon = []
+var polygon = PoolVector2Array([])
 var angles = []
 
 func _ready():
 	self.triangulatedPolygon = []
 	set_process(true)
+
+func _draw():
+	var uvs = []
+	for i in range(polygon.size()):
+		uvs.append(Vector2(0,0))
+	draw_colored_polygon(polygon, Color(0.95,0.95,0.95,1), PoolVector2Array(uvs), null, null, true)
 
 func _process(delta):
 	nextUpdate -= delta*1000
@@ -72,6 +79,7 @@ func _process(delta):
 			currentPoint = p
 		polygon = PoolVector2Array(dedupedPoints)
 		self.triangulatedPolygon = Geometry.triangulate_polygon(polygon)
+		update()
 
 func sortByAngle(a,b):
 	return angles[a] < angles[b]
