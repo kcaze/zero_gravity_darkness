@@ -153,3 +153,9 @@ func inLight():
 
 func screenshake():
 	get_node('../Camera2D').screenshake()
+
+func onSpikeCollide(area):
+	die()
+
+func die():
+	get_tree().reload_current_scene()
