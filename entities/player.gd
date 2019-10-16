@@ -96,7 +96,7 @@ func _process(delta):
 			speed.y = approach(speed.y, MAX_FALL, GRAVITY*delta*gravityMult)
 		else:
 			speed.y = 0
-		if is_on_ceiling():
+		if is_on_ceiling() and speed.y < 10:
 			speed.y = 0
 		
 		# Jumping
