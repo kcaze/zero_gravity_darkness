@@ -16,7 +16,7 @@ func _draw():
 	var uvs = []
 	for i in range(polygon.size()):
 		uvs.append(Vector2(0,0))
-	draw_colored_polygon(polygon, Color(0.95,0.95,0.95,1), PoolVector2Array(uvs), null, null, true)
+	draw_colored_polygon(polygon, Color('c0cbdc'), PoolVector2Array(uvs), null, null, true)
 
 func _process(delta):
 	nextUpdate -= delta*1000
@@ -50,7 +50,7 @@ func _process(delta):
 				var ps = []
 				for radOffset in [-0.0001, 0.0001]:
 					var originalPoint = p - offset
-					var point = originalPoint.rotated(radOffset).normalized()*4000
+					var point = originalPoint.rotated(radOffset).normalized()*1500
 					rc.cast_to = point
 					rc.force_raycast_update()
 					if not rc.is_colliding():

@@ -2,8 +2,9 @@ extends KinematicBody2D
 
 const MAX_FALL = 200
 const MAX_RUN = 95
+const REAL_MAX_RUN = 250
 const RUN_ACCEL = 1500
-const RUN_REDUCE = 750
+const RUN_REDUCE = 1000
 const MAX_SWIM = 50
 const SWIM_ACCEL = 500
 const SWIM_FRICTION = 0.875
@@ -71,6 +72,10 @@ func _process(delta):
 	var isInLight = inLight()
 	# Regular platforming
 	if isInLight:
+		if abs(speed.x) > REAL_MAX_RUN:
+			speed.x = REAL_MAX_RUN*sign(speed.x)
+		if abs(speed.y) > REAL_MAX_RUN:
+			speed.y = REAL_MAX_RUN*sign(speed.y)
 		dashGraceTime = 0
 		if is_on_floor():
 			jumpGraceTime = JUMP_GRACE_TIME
