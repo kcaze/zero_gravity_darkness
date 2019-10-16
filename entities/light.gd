@@ -13,6 +13,8 @@ func _ready():
 	set_process(true)
 
 func _draw():
+	if polygon.size() < 3:
+		return
 	var uvs = []
 	for i in range(polygon.size()):
 		uvs.append(Vector2(0,0))

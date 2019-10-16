@@ -121,7 +121,7 @@ z_index = 1
 curve = SubResource( 3 )
 
 [node name="PathFollow2D" parent="Path2D" instance=ExtResource( 7 )]
-position = Vector2( 185.371, 197.921 )
-offset = 64690.7
+position = Vector2( 160.871, 203.716 )
+offset = 67782.0
 speed = 35
 offInterval = 0

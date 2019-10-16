@@ -140,6 +140,8 @@ func jump():
 
 func inLight():
 	for light in get_tree().get_nodes_in_group('light'):
+		if not light.isOn:
+			continue
 		var lightPoints = light.get_node('visiblePolygon').polygon
 		var triangulatedPoints = light.get_node('visiblePolygon').triangulatedPolygon
 		if triangulatedPoints.size() == 0:

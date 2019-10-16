@@ -123,11 +123,11 @@ position = Vector2( 9.51837, -33.2874 )
 curve = SubResource( 3 )
 
 [node name="PathFollow2D" parent="Path2D" instance=ExtResource( 7 )]
-position = Vector2( 154.743, 253.725 )
-offset = 164995.0
+position = Vector2( 117.27, 226.163 )
+offset = 165526.0
 speed = 50
 
 [node name="PathFollow2D" parent="." instance=ExtResource( 7 )]
 position = Vector2( 160, 75.1663 )
-offset = 539.618
-speed = 1
+offset = 550.23
+offInterval = 0

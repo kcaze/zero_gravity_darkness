@@ -7,14 +7,17 @@
 [node name="PathFollow2D" type="PathFollow2D" groups=[
 "light",
 ]]
-offset = 447.469
+offset = 694.94
 rotate = false
 script = ExtResource( 1 )
+offInterval = 1
 
 [node name="Sprite" type="Sprite" parent="."]
+modulate = Color( 0.5, 0.5, 0.5, 1 )
 texture = ExtResource( 2 )
 
 [node name="visiblePolygon" type="Node2D" parent="."]
+visible = false
 z_index = -1
 script = ExtResource( 3 )
 
