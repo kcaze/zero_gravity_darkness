@@ -23,7 +23,7 @@ func _process(delta):
 	if nextUpdate <= 0:
 		nextUpdate = UPDATE_INTERVAL
 		#get_parent().position = get_viewport().get_mouse_position()
-		var offset = get_parent().position
+		var offset = global_position
 		var maps = get_tree().get_nodes_in_group('collision_map')
 		var points = []
 		var indexes = []
