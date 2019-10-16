@@ -1,25 +1,32 @@
 extends KinematicBody2D
 
-const MAX_FALL = 500
-const MAX_RUN = 200
-const RUN_ACCEL = 2000
+const MAX_FALL = 200
+const MAX_RUN = 95
+const RUN_ACCEL = 1500
 const RUN_REDUCE = 750
-const MAX_SWIM = 120
+const MAX_SWIM = 50
 const SWIM_ACCEL = 500
-const SWIM_FRICTION = 0.95
-const SWIM_DASH_ACCEL = 500
+const SWIM_FRICTION = 0.93
+const SWIM_DASH_ACCEL = 200
 const GRAVITY = 900
-const HALF_GRAVITY_THRESHOLD = 10
+const HALF_GRAVITY_THRESHOLD = 40
 const JUMP_GRACE_TIME = 0.1
 const JUMP_H_BOOST = 40
-const JUMP_SPEED = -305
+const JUMP_SPEED = -215
 const JUMP_INPUT_BUFFER = 0.1
+const INPUT_X_BUFFER = 0.1
+const INPUT_Y_BUFFER = 0.1
+const DASH_GRACE_TIME = 1.0/60*3
 
 var speed = Vector2(0,0)
+var dashGraceTime = 0
 var jumpGraceTime = 0
 var inputMoveX = 0
-var inputMoveY
+var inputMoveY = 0
+var inputX = 0
+var inputY = 0
 var inputJump = 0 
+var facing = 1
 
 func approach(curr, bound, delta):
 	var s = sign(bound - curr)
@@ -36,11 +43,30 @@ func updateInput(delta):
 		inputJump = JUMP_INPUT_BUFFER
 	elif not Input.is_action_pressed('jump'):
 		inputJump -= delta
+	
+	if Input.is_action_pressed('left'):
+		inputX = -INPUT_X_BUFFER
+	elif Input.is_action_pressed('right'):
+		inputX = INPUT_X_BUFFER
+	else:
+		inputX = approach(inputX, 0, delta)
+	
+	if Input.is_action_pressed('up'):
+		inputY = -INPUT_Y_BUFFER
+	elif Input.is_action_pressed('down'):
+		inputY = INPUT_Y_BUFFER
+	else:
+		inputY = approach(inputY, 0, delta)
+	
 
 func _process(delta):
 	updateInput(delta)
+	#Graphical updates
+	if sign(speed.x) != 0:
+		facing = sign(speed.x)
+	
+	get_node('sprite').scale.x = facing
 	var isInLight = inLight()
-
 	# Regular platforming
 	if isInLight:
 		if is_on_floor():
@@ -68,6 +94,13 @@ func _process(delta):
 	else:
 		var maxX = MAX_SWIM*inputMoveX/SWIM_FRICTION
 		var maxY = MAX_SWIM*inputMoveY/SWIM_FRICTION
+		dashGraceTime -= delta
+		if dashGraceTime > 0:
+			print('hi')
+			if inputMoveX != 0 or inputMoveY != 0:
+				var s = max(abs(speed.x),abs(speed.y))
+				speed.x = inputMoveX*s
+				speed.y = inputMoveY*s
 		if inputMoveX != 0:
 			speed.x = approach(speed.x, maxX, SWIM_ACCEL*delta)*SWIM_FRICTION
 		else:
@@ -76,13 +109,15 @@ func _process(delta):
 			speed.y = approach(speed.y, maxY, SWIM_ACCEL*delta)*SWIM_FRICTION
 		else:
 			speed.y *= SWIM_FRICTION
-		if inputJump > 0:
-			if inputMoveX == 0 and inputMoveY == 0:
-				speed.x = SWIM_DASH_ACCEL
+		if inputJump > 0 and abs(speed.x) < MAX_SWIM/SWIM_FRICTION and abs(speed.y) < MAX_SWIM/SWIM_FRICTION:
+			screenshake()
+			dashGraceTime = DASH_GRACE_TIME
+			if inputX == 0 and inputY == 0:
+				speed.x = SWIM_DASH_ACCEL*facing
 				speed.y = 0
 			else:
-				speed.x = inputMoveX*SWIM_DASH_ACCEL
-				speed.y = inputMoveY*SWIM_DASH_ACCEL
+				speed.x = sign(inputX)*SWIM_DASH_ACCEL
+				speed.y = sign(inputY)*SWIM_DASH_ACCEL
 			inputJump = 0
 
 	move_and_slide(speed, Vector2(0, -1))
@@ -96,7 +131,7 @@ func jump():
 func inLight():
 	for light in get_tree().get_nodes_in_group('light'):
 		var lightPoints = light.get_node('visiblePolygon').polygon
-		var triangulatedPoints = Geometry.triangulate_polygon(lightPoints)
+		var triangulatedPoints = light.get_node('visiblePolygon').triangulatedPolygon
 		if triangulatedPoints.size() == 0:
 			continue
 		for i in range(triangulatedPoints.size()/3):
@@ -106,3 +141,6 @@ func inLight():
 			if Geometry.point_is_inside_triangle(position,a,b,c):
 				return true
 	return false
+
+func screenshake():
+	get_node('../Camera2D').screenshake()
