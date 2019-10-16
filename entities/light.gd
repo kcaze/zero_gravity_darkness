@@ -16,7 +16,7 @@ func _draw():
 	var uvs = []
 	for i in range(polygon.size()):
 		uvs.append(Vector2(0,0))
-	draw_colored_polygon(polygon, Color('c0cbdc'), PoolVector2Array(uvs), null, null, true)
+	draw_colored_polygon(polygon, Color('899bb4'), PoolVector2Array(uvs), null, null, true)
 
 func _process(delta):
 	nextUpdate -= delta*1000

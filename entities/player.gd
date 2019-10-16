@@ -66,7 +66,7 @@ func _process(delta):
 	#Graphical updates
 	if sign(speed.x) != 0:
 		facing = sign(speed.x)
-	get_node('Particles2D').emitting = max(abs(speed.x),abs(speed.y)) >= MAX_SWIM/SWIM_FRICTION
+	get_node('Particles2D').emitting = (not isInLight) and max(abs(speed.x),abs(speed.y)) >= MAX_SWIM/SWIM_FRICTION
 	get_node('sprite').scale.x = facing
 	get_node('sprite').modulate = Color(1,1,1,1) if isInLight else Color(0.5,0.5,0.5,1)
 	
