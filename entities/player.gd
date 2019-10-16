@@ -145,9 +145,9 @@ func inLight():
 		if triangulatedPoints.size() == 0:
 			continue
 		for i in range(triangulatedPoints.size()/3):
-			var a = lightPoints[triangulatedPoints[3*i]] + light.position
-			var b = lightPoints[triangulatedPoints[3*i+1]] + light.position
-			var c = lightPoints[triangulatedPoints[3*i+2]] + light.position
+			var a = lightPoints[triangulatedPoints[3*i]] + light.global_position
+			var b = lightPoints[triangulatedPoints[3*i+1]] + light.global_position
+			var c = lightPoints[triangulatedPoints[3*i+2]] + light.global_position
 			if Geometry.point_is_inside_triangle(position,a,b,c):
 				return true
 	return false
