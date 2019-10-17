@@ -49,7 +49,7 @@ func _process(delta):
 			var ps = []
 			for radOffset in [-0.0001, 0.0001]:
 				var originalPoint = p - offset
-				var point = originalPoint.rotated(radOffset).normalized()*750
+				var point = originalPoint.rotated(radOffset).normalized()*550
 				rc.cast_to = point
 				rc.force_raycast_update()
 				if not rc.is_colliding():
