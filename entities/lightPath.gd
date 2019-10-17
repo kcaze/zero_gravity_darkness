@@ -2,13 +2,15 @@ tool
 extends PathFollow2D
 
 export var speed = 1
-export var onInterval = 1
-export var offInterval = 0
+export var intervalOffset = 0.0
+export var onInterval = 1.0
+export var offInterval = 0.0
 
-var t = 0
+var t = intervalOffset
 var isOn = true
 
 func _ready():
+	t = intervalOffset
 	set_process(true)
 
 func _process(delta):

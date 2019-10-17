@@ -7,7 +7,7 @@
 [node name="PathFollow2D" type="PathFollow2D" groups=[
 "light",
 ]]
-offset = 715.578
+offset = 734.952
 rotate = false
 script = ExtResource( 1 )
 
