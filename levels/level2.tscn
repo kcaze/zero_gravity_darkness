@@ -1,6 +1,5 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=9 format=2]
 
-[ext_resource path="res://levels/level.gd" type="Script" id=1]
 [ext_resource path="res://levels/level_common.tscn" type="PackedScene" id=2]
 [ext_resource path="res://entities/collision_map.tscn" type="PackedScene" id=3]
 [ext_resource path="res://entities/collision_map.tres" type="TileSet" id=4]
@@ -9,13 +8,12 @@
 [ext_resource path="res://entities/light.tscn" type="PackedScene" id=7]
 [ext_resource path="res://levels/level3.tscn" type="PackedScene" id=9]
 
-[sub_resource type="Curve2D" id=3]
+[sub_resource type="Curve2D" id=1]
 _data = {
 "points": PoolVector2Array( -0.41812, -80.2791, -0.445413, 56.9779, 182.671, 211.489, 0.180271, 56.8034, -0.140275, -0.397209, 115.604, 211.777, 0, 0, -0.307842, 56.4062, 115.604, 212.065, -0.00999942, 57.0162, 0, 0, 182.383, 212.065 )
 }
 
 [node name="root" type="Node2D"]
-script = ExtResource( 1 )
 
 [node name="level_common" parent="." instance=ExtResource( 2 )]
 
@@ -47,13 +45,13 @@ z_index = 1
 
 [node name="Path2D" type="Path2D" parent="."]
 position = Vector2( 9.51837, -33.2874 )
-curve = SubResource( 3 )
+curve = SubResource( 1 )
 
 [node name="PathFollow2D" parent="Path2D" instance=ExtResource( 7 )]
-position = Vector2( 178.393, 233.45 )
-offset = 22.4977
+position = Vector2( 181.012, 225.348 )
+offset = 226.714
 speed = 50
 
 [node name="PathFollow2D" parent="." instance=ExtResource( 7 )]
 position = Vector2( 160, 75.1663 )
-offset = 682.989
+offset = 687.072

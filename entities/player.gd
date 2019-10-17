@@ -155,7 +155,7 @@ func inLight():
 	return false
 
 func screenshake():
-	get_node('../Camera2D').screenshake()
+	get_node('../level_common/Camera2D').screenshake()
 
 func onSpikeCollide(area):
 	die()

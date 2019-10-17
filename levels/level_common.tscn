@@ -1,9 +1,44 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://images/background.png" type="Texture" id=1]
 [ext_resource path="res://entities/camera.tscn" type="PackedScene" id=2]
 [ext_resource path="res://entities/border.tscn" type="PackedScene" id=3]
 [ext_resource path="res://levels/level.gd" type="Script" id=4]
+
+[sub_resource type="Shader" id=1]
+code = "shader_type canvas_item;
+
+uniform float t = 0.0;
+
+void fragment() {
+	float s = 1000.;
+	float cx = 1./240.0*s/2.;
+	float cy = 1./320.0*s/2.;
+	float x = SCREEN_UV.x/240.*s;
+	float y = SCREEN_UV.y/320.*s;
+	float c = 1.-step(sqrt(pow(x-cx,2)+pow(y-cy,2)), t);
+	COLOR=vec4(0,0,0,c);
+}"
+
+[sub_resource type="ShaderMaterial" id=2]
+shader = SubResource( 1 )
+shader_param/t = 0.0
+
+[sub_resource type="Animation" id=3]
+resource_name = "start"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/path = NodePath("Node2D:material:shader_param/t")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 0.0, 3.0 ]
+}
 
 [node name="level_common" type="Node2D"]
 script = ExtResource( 4 )
@@ -31,3 +66,12 @@ __meta__ = {
 }
 
 [node name="Camera2D" parent="." instance=ExtResource( 2 )]
+
+[node name="Node2D" type="Polygon2D" parent="."]
+material = SubResource( 2 )
+z_index = 100
+polygon = PoolVector2Array( 0, 0, 320, 0, 320, 240, 0, 240 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+autoplay = "start"
+anims/start = SubResource( 3 )
