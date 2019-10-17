@@ -29,7 +29,7 @@ func _process(delta):
 		var maps = get_tree().get_nodes_in_group('collision_map')
 		var points = []
 		var indexes = []
-		var polygons = []
+		var polygonPoints = []
 		angles = []
 		var i = 0
 		for map in maps:
@@ -40,34 +40,31 @@ func _process(delta):
 				var cell_offset = map.map_to_world(pos)
 				if occluder == null:
 					continue
-				var isVisible = false
-				var poly = []
 				for p in occluder.polygon:
-					poly.append(p+cell_offset)
-				polygons.append(poly)
+					polygonPoints.append(p+cell_offset)
 		for borderPolygon in get_tree().get_nodes_in_group('borderPolygon'):
-			polygons.append(borderPolygon.polygon)
-		for poly in polygons:
-			for p in poly:
-				var ps = []
-				for radOffset in [-0.0001, 0.0001]:
-					var originalPoint = p - offset
-					var point = originalPoint.rotated(radOffset).normalized()*1500
-					rc.cast_to = point
-					rc.force_raycast_update()
-					if not rc.is_colliding():
-						continue
-					var collisionPoint = rc.get_collision_point() - offset
-					if collisionPoint.length() < originalPoint.length() - 1:
-						continue
-					ps.append(collisionPoint)
-				if ps.size() == 2 and (ps[0] - ps[1]).length() <= 1:
-					ps = [ps[0]]
-				for pp in ps:
-					points.append(pp)
-					indexes.append(i)
-					angles.append(pp.angle())
-					i += 1
+			for p in borderPolygon.polygon:
+				polygonPoints.append(p)
+		for p in polygonPoints:
+			var ps = []
+			for radOffset in [-0.0001, 0.0001]:
+				var originalPoint = p - offset
+				var point = originalPoint.rotated(radOffset).normalized()*750
+				rc.cast_to = point
+				rc.force_raycast_update()
+				if not rc.is_colliding():
+					continue
+				var collisionPoint = rc.get_collision_point() - offset
+				if collisionPoint.length() < originalPoint.length() - 1:
+					continue
+				ps.append(collisionPoint)
+			if ps.size() == 2 and (ps[0] - ps[1]).length() <= 1:
+				ps = [ps[0]]
+			for pp in ps:
+				points.append(pp)
+				indexes.append(i)
+				angles.append(pp.angle())
+				i += 1
 		indexes.sort_custom(self, "sortByAngle")
 		var sortedPoints = []
 		var dedupedPoints = []
