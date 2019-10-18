@@ -88,32 +88,24 @@ z_index = 1
 
 [node name="PathFollow2D2" parent="." instance=ExtResource( 5 )]
 position = Vector2( 180, 144 )
-offset = 9175.37
-speed = 1
+offset = 5.66059
 intervalOffset = 1.5
 onInterval = 1.5
 offInterval = 1.5
 
 [node name="PathFollow2D3" parent="." instance=ExtResource( 5 )]
 position = Vector2( 132, 144 )
-offset = 9175.37
-speed = 1
-intervalOffset = 0.0
+offset = 5.66059
 onInterval = 1.5
 offInterval = 1.5
 
 [node name="PathFollow2D4" parent="." instance=ExtResource( 5 )]
 position = Vector2( 156, 128 )
-offset = 9175.37
-speed = 1
-intervalOffset = 0.0
-onInterval = 1.0
-offInterval = 0.0
+offset = 5.66059
 
 [node name="PathFollow2D5" parent="." instance=ExtResource( 5 )]
 position = Vector2( 192, 20 )
-offset = 9175.37
-speed = 1
+offset = 5.66059
 intervalOffset = 0.75
 onInterval = 1.5
 offInterval = 1.5
