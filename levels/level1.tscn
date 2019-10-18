@@ -10,7 +10,7 @@
 
 [sub_resource type="Curve2D" id=1]
 _data = {
-"points": PoolVector2Array( 0, 0, 0, 0, 136, 216, 0, 0, 0, 0, 168, 216, 0, 0, 0, 0, 168, 216, 0, 0, 0, 0, 136, 216 )
+"points": PoolVector2Array( 0, 0, 0, 0, 172, 216, 0, 0, 0, 0, 144, 216 )
 }
 
 [node name="root" type="Node2D"]
@@ -57,6 +57,7 @@ z_index = 1
 curve = SubResource( 1 )
 
 [node name="PathFollow2D" parent="Path2D" instance=ExtResource( 7 )]
-position = Vector2( 148.065, 216 )
-offset = 12.0639
+position = Vector2( 155.688, 216 )
+offset = 16.313
 speed = 10
+goBack = true

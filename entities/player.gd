@@ -138,6 +138,10 @@ func _process(delta):
 			var mult = 1.0/ pow(direction.length(),WHIRLPOOL_DIST_POW) if direction.length() <= WHIRLPOOL_MAX_DIST else 0
 			speed.x += WHIRLPOOL_FORCE*mult*direction.normalized().x
 			speed.y += WHIRLPOOL_FORCE*mult*direction.normalized().y
+		if is_on_wall():
+			speed.x = 0
+		if is_on_ceiling() or is_on_floor():
+			speed.y = 0
 
 	move_and_slide(speed, Vector2(0, -1))
 
