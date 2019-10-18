@@ -99,7 +99,7 @@ position = Vector2( 4, 14 )
 curve = SubResource( 3 )
 
 [node name="PathFollow2D" parent="Path2D" instance=ExtResource( 7 )]
-position = Vector2( 105.139, 192 )
-offset = 5.1395
+position = Vector2( 102.355, 192 )
+offset = 2.64764
 speed = 100
 goBack = true
