@@ -93,7 +93,7 @@ z_index = 1
 
 [node name="PathFollow2D" parent="." instance=ExtResource( 6 )]
 position = Vector2( 216, 112 )
-offset = 919.655
+offset = 377874.0
 speed = 10
 onInterval = 2.0
 offInterval = 2.0
