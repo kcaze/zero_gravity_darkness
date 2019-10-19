@@ -1,5 +1,7 @@
 extends Sprite
 
+export var max_dist = 200
+
 func _ready():
 	set_process(true)
 

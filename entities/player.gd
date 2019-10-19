@@ -136,7 +136,7 @@ func _process(delta):
 		for whirlpool in get_tree().get_nodes_in_group('whirlpool'):
 			
 			var direction = -((position-whirlpool.position).rotated(WHIRLPOOL_RAD_OFFSET))
-			var mult = 1.0/ pow(direction.length(),WHIRLPOOL_DIST_POW) if direction.length() <= WHIRLPOOL_MAX_DIST else 0
+			var mult = 1.0/ pow(direction.length(),WHIRLPOOL_DIST_POW) if direction.length() <= whirlpool.max_dist else 0
 			speed.x += WHIRLPOOL_FORCE*mult*direction.normalized().x
 			speed.y += WHIRLPOOL_FORCE*mult*direction.normalized().y
 		if is_on_wall():
