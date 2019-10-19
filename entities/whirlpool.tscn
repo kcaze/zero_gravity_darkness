@@ -4,7 +4,7 @@
 [ext_resource path="res://entities/whirlpool.gd" type="Script" id=2]
 
 [sub_resource type="CircleShape2D" id=1]
-radius = 12.0
+radius = 11.0
 
 [node name="whirlpool" type="Sprite" groups=[
 "whirlpool",
@@ -14,7 +14,9 @@ z_index = -1
 texture = ExtResource( 1 )
 script = ExtResource( 2 )
 
-[node name="Area2D" type="Area2D" parent="."]
+[node name="Area2D" type="Area2D" parent="." groups=[
+"whirlpool_collide",
+]]
 collision_layer = 524288
 collision_mask = 524288
 

@@ -27,10 +27,21 @@ func _process(delta):
 	else:
 		offset = internalPathOffset
 	t = fmod(t+delta, onInterval+offInterval)
-	if t <= onInterval:
+	if t >= onInterval -0.5 and t < onInterval and offInterval > 0:
+		get_node('Sprite').modulate = Color(1,1,1,0.75)
+		get_node('visiblePolygon').visible = true
+		get_node('visiblePolygon').modulate = Color(0.75,0.75,0.75,1)
+		isOn = true
+	elif t <= onInterval:
 		get_node('Sprite').modulate = Color(1,1,1,1)
 		get_node('visiblePolygon').visible = true
+		get_node('visiblePolygon').modulate = Color(1,1,1,1)
 		isOn = true
+	elif t >= onInterval+offInterval - 0.5:
+		get_node('Sprite').modulate = Color(0.75,0.75,0.75,1)
+		get_node('visiblePolygon').visible = true
+		get_node('visiblePolygon').modulate = Color(0.25,0.25,0.25,0.25)
+		isOn = false
 	else:
 		get_node('Sprite').modulate = Color(0.5,0.5,0.5,1)
 		get_node('visiblePolygon').visible = false

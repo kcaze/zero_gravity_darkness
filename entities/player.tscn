@@ -44,10 +44,11 @@ process_material = SubResource( 3 )
 texture = ExtResource( 3 )
 
 [node name="Area2D" type="Area2D" parent="."]
+priority = 100.0
 collision_layer = 524288
 collision_mask = 524288
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Area2D"]
-polygon = PoolVector2Array( -3, -4, 3, -4, 3, 5, -3, 5 )
+polygon = PoolVector2Array( -3, -3, 3, -3, 3, 7.5, -3, 7.5 )
 [connection signal="area_entered" from="Area2D" to="." method="onSpikeCollide"]
 [connection signal="body_entered" from="Area2D" to="." method="onSpikeCollide"]

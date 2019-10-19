@@ -134,14 +134,15 @@ func _process(delta):
 				speed.y = sign(inputY)*SWIM_DASH_ACCEL
 			inputJump = 0
 		for whirlpool in get_tree().get_nodes_in_group('whirlpool'):
+			
 			var direction = -((position-whirlpool.position).rotated(WHIRLPOOL_RAD_OFFSET))
 			var mult = 1.0/ pow(direction.length(),WHIRLPOOL_DIST_POW) if direction.length() <= WHIRLPOOL_MAX_DIST else 0
 			speed.x += WHIRLPOOL_FORCE*mult*direction.normalized().x
 			speed.y += WHIRLPOOL_FORCE*mult*direction.normalized().y
 		if is_on_wall():
-			speed.x = 0
+			speed.x /= 2
 		if is_on_ceiling() or is_on_floor():
-			speed.y = 0
+			speed.y /= 2
 
 	move_and_slide(speed, Vector2(0, -1))
 
@@ -171,7 +172,11 @@ func screenshake():
 	get_node('../level_common/Camera2D').screenshake()
 
 func onSpikeCollide(area):
-	die()
+	if area.is_in_group('whirlpool_collide'):
+		if not inLight():
+			die()
+	else:
+		die()
 
 func die():
 	get_tree().reload_current_scene()
