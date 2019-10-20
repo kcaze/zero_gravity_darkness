@@ -56,7 +56,7 @@ z_index = 1
 
 [node name="PathFollow2D" parent="." instance=ExtResource( 6 )]
 position = Vector2( 28, 36 )
-offset = 87.8979
+offset = 89.3667
 speed = 1
 intervalOffset = 0.0
 onInterval = 1.0
@@ -65,7 +65,7 @@ goBack = false
 
 [node name="PathFollow2D2" parent="." instance=ExtResource( 6 )]
 position = Vector2( 52, 188 )
-offset = 87.8979
+offset = 89.3667
 speed = 1
 intervalOffset = 0.0
 onInterval = 1.0
@@ -74,7 +74,7 @@ goBack = false
 
 [node name="PathFollow2D3" parent="." instance=ExtResource( 6 )]
 position = Vector2( 76, 116 )
-offset = 87.8979
+offset = 89.3667
 speed = 1
 intervalOffset = 0.0
 onInterval = 1.0
@@ -83,7 +83,7 @@ goBack = false
 
 [node name="PathFollow2D4" parent="." instance=ExtResource( 6 )]
 position = Vector2( 52, 52 )
-offset = 87.8979
+offset = 89.3667
 speed = 1
 intervalOffset = 0.0
 onInterval = 1.0
@@ -94,8 +94,8 @@ goBack = false
 curve = SubResource( 3 )
 
 [node name="PathFollow2D5" parent="Path2D" instance=ExtResource( 6 )]
-position = Vector2( 99.8197, 162.713 )
-offset = 99.5574
+position = Vector2( 100, 133.185 )
+offset = 70.1812
 speed = 20
 intervalOffset = 0.0
 onInterval = 1.0
@@ -112,7 +112,7 @@ max_dist = 50
 
 [node name="PathFollow2D7" parent="." instance=ExtResource( 6 )]
 position = Vector2( 144, 120 )
-offset = 87.8979
+offset = 89.3667
 speed = 1
 intervalOffset = 0.0
 onInterval = 2.0
@@ -121,7 +121,7 @@ goBack = false
 
 [node name="PathFollow2D5" parent="." instance=ExtResource( 6 )]
 position = Vector2( 276, 128 )
-offset = 87.8979
+offset = 89.3667
 speed = 1
 intervalOffset = 0.0
 onInterval = 1.0

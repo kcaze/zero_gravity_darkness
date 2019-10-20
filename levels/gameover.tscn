@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://Chewy-Regular.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://entities/collision_map.tres" type="TileSet" id=2]
@@ -6,8 +6,6 @@
 [ext_resource path="res://entities/light.tscn" type="PackedScene" id=4]
 [ext_resource path="res://entities/player.tscn" type="PackedScene" id=5]
 [ext_resource path="res://entities/collision_map.tscn" type="PackedScene" id=6]
-[ext_resource path="res://entities/exit.tscn" type="PackedScene" id=7]
-[ext_resource path="res://levels/level0.tscn" type="PackedScene" id=8]
 
 [sub_resource type="DynamicFont" id=1]
 size = 32
@@ -38,10 +36,6 @@ cell_size = Vector2( 8, 8 )
 collision_mask = 3
 tile_data = PoolIntArray( 65537, 9, 0, 65574, 9, 0, 262148, 9, 0, 262179, 9, 0, 327685, 9, 0, 327714, 9, 0, 786433, 9, 0, 1114113, 9, 0, 1572869, 9, 0, 1572898, 9, 0, 1638404, 9, 0, 1638435, 9, 0, 1835009, 9, 0, 1835046, 9, 0 )
 
-[node name="exit" parent="." instance=ExtResource( 7 )]
-position = Vector2( 390, 228 )
-nextLevel = ExtResource( 8 )
-
 [node name="player" parent="." instance=ExtResource( 5 )]
 position = Vector2( 14, 120 )
 
@@ -64,8 +58,8 @@ __meta__ = {
 curve = SubResource( 2 )
 
 [node name="PathFollow2D" parent="Path2D" instance=ExtResource( 4 )]
-position = Vector2( 240.034, 177 )
-offset = 222.556
+position = Vector2( 130.538, 65.3006 )
+offset = 578.653
 speed = 50
 intervalOffset = 0.0
 onInterval = 1.0
