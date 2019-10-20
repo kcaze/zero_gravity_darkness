@@ -46,4 +46,9 @@ polygon = PoolVector2Array( 44, 64, 44, 72, 40, 72, 36, 76, 36, 80, 40, 84, 44, 
 
 [node name="PathFollow2D" parent="." instance=ExtResource( 2 )]
 position = Vector2( 140, 184 )
-offset = 35.6235
+offset = 6.04873
+speed = 1
+intervalOffset = 0.0
+onInterval = 1.0
+offInterval = 0.0
+goBack = false
